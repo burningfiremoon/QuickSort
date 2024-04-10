@@ -3,6 +3,8 @@
 #include <fstream>
 using namespace std;
 
+
+// move these to a .h file later
 int Partition(int array[], int start, int end);
 void QuickSortBase(int array[], int start, int end);
 void QuickSortBaseWithIntrospection(int array[], int start, int end);
