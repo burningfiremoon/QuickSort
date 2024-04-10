@@ -2,8 +2,10 @@
 #include <iostream>
 using namespace std;
 
-int partition(int* array, int start, int end);
-void QuickSortBase(int* array, int start, int end);
+int Partition(int array[], int start, int end);
+void QuickSortBase(int array[], int start, int end);
+int LumotoPartition(int array[], int start, int end);
+void LomutoPartitionQuickSort(int array[], int start, int end);
 
 int main(){
 
@@ -12,7 +14,7 @@ int main(){
 
     int * Aptr = array;
 
-    QuickSortBase(array, 0, 9);
+    LomutoPartitionQuickSort(array, 0, 9);
 
 
     for(int i : array){
@@ -22,7 +24,29 @@ int main(){
     return 1;
 }
 
-int partition(int array[], int start, int end){
+void QuickSortBase(int array[], int start, int end){
+    // base quicksort using end as initial pivot
+
+    if (end <= start){return;}
+
+    int pivot = Partition(array, start, end);
+    
+    QuickSortBase(array, start, pivot - 1);
+    QuickSortBase(array, pivot + 1, end);
+}
+
+void LomutoPartitionQuickSort(int array[], int start, int end){
+    // base quicksort using end as initial pivot
+
+    if (end <= start){return;}
+
+    int pivot = LumotoPartition(array, start, end);
+    
+    QuickSortBase(array, start, pivot - 1);
+    QuickSortBase(array, pivot + 1, end);
+}
+
+int Partition(int array[], int start, int end){
     int i = start - 1;
     for (int j = start; j <= end-1; j++){
         if (array[j] < array[end]){
@@ -41,14 +65,19 @@ int partition(int array[], int start, int end){
 
 }
 
+int LumotoPartition(int array[], int start, int end){
 
-void QuickSortBase(int array[], int start, int end){
-    // base quicksort using end as initial pivot
-
-    if (end <= start){return;}
-
-    int pivot = partition(array, start, end);
-    
-    QuickSortBase(array, start, pivot - 1);
-    QuickSortBase(array, pivot + 1, end);
+    int i = start;
+    for (int j = start; j < end; j++){
+        if (array[j] < array[end]){
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            i++;
+        }
+    }
+    int temp = array[i];
+    array[i] = array[end];
+    array[end] = temp;
+    return i;
 }
