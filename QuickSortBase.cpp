@@ -16,5 +16,5 @@ int main(){
         cout << array[i] << " ";
     }
 
-    return 1;
+    return 0;
 }
