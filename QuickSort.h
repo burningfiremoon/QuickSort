@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <vector>
+#include <random>
 using namespace std;
 
 void QuickSortBase(int array[], int start, int end){
@@ -95,7 +97,7 @@ void LomutoPartitionQuickSortWithIntrospectionAndMedianOfThree(int array[], int 
     //insertion sort
     if (end - start < 7){
         int key, z;
-        for (int i = start+1; i < end; i++){
+        for (int i = start+1; i <= end; i++){
             key = array[i];
             z = i-1;
 
@@ -143,16 +145,16 @@ void LomutoPartitionQuickSortWithIntrospectionAndMedianOfThree(int array[], int 
 }
 
 int* readNumbersFromFile(const char* filename, int size){
-    std::ifstream inputFile(filename);
+    ifstream inputFile(filename);
     if (!inputFile) {
-        std::cerr << "Error opening the file." << std::endl;
+        cerr << "Error opening the file." << endl;
         return nullptr;
     }
 
     int* numbers = new int[size];
     for (int i = 0; i < size; ++i) {
         if (!(inputFile >> numbers[i])) {
-            std::cerr << "Error reading from file." << std::endl;
+            cerr << "Error reading from file." << endl;
             delete[] numbers; // Free memory in case of error
             return nullptr;
         }
@@ -160,4 +162,47 @@ int* readNumbersFromFile(const char* filename, int size){
 
     inputFile.close();
     return numbers;
+}
+
+bool deleteFile(const char* filename) {
+    if (remove(filename) != 0) {
+        cerr << "Error deleting file " << filename << endl;
+        return false;
+    }
+    cout << endl << "File " << filename << " deleted successfully." << endl;
+    return true;
+}
+
+bool generateRandomNumbersFile(const char* filename, int numNumbers) {
+    vector<int> numbers;
+    if (numNumbers <= 0) {
+        cerr << "Number of numbers must be positive." << endl;
+        return false;
+    }
+
+    // Generate a list of non-repeating integers
+    for (int i = 1; i <= numNumbers; i++) {
+        numbers.push_back(i);
+    }
+
+    random_device rd;
+
+    mt19937 gen(rd());
+
+    shuffle(numbers.begin(), numbers.end(), gen);
+    
+    // Write the numbers to a text file
+    ofstream file(filename);
+
+    if (file.is_open()) {
+        for (int i = 0; i < numNumbers; ++i) {
+            file << numbers[i] << "\n";
+        }
+        file.close();
+        cout << "File generated successfully." << endl;
+        return true;
+    } else {
+        cerr << "Unable to open file " << filename << " for writing." << endl;
+        return false;
+    }
 }
