@@ -28,9 +28,21 @@ void QuickSortBase(int array[], int start, int end){
     QuickSortBase(array, i + 1, end);
 }
 
-void LomutoPartitionQuickSort(int array[], int start, int end){
+void QuickSortBaseWithMedianOfThree(int array[], int start, int end){
 
     if (end <= start){return;}
+
+    int tempArr[3] = {array[start], array[(start+end)/2], array[end]};
+
+    int tempIndex = 2;
+
+    if ((tempArr[0] >= tempArr[1] && tempArr[0] <= tempArr[2]) || (tempArr[0] >= tempArr[2] && tempArr[0] <= tempArr[1]))
+        int tempIndex = 0;
+    else if ((tempArr[1] >= tempArr[0] && tempArr[1] <= tempArr[2]) || (tempArr[1] >= tempArr[2] && tempArr[1] <= tempArr[0]))
+        int tempIndex = 1;
+
+    
+    array[end] = tempArr[tempIndex];
 
     // LumotoPartition
     int i = start;
@@ -46,8 +58,8 @@ void LomutoPartitionQuickSort(int array[], int start, int end){
     array[i] = array[end];
     array[end] = temp;
     
-    LomutoPartitionQuickSort(array, start, i - 1);
-    LomutoPartitionQuickSort(array, i + 1, end);
+    QuickSortBaseWithMedianOfThree(array, start, i - 1);
+    QuickSortBaseWithMedianOfThree(array, i + 1, end);
 }
 
 void QuickSortBaseWithIntrospection(int array[], int start, int end){

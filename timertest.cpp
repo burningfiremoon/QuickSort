@@ -105,7 +105,7 @@ void testSortingSpeed(int numNumbers, const char* filename) {
 
 int main() {
     const char* filename = "random_numbers.txt";
-    int numNumbers = 10000; // Number of random numbers to generate
+    int numNumbers = 1000000; // Number of random numbers to generate
     testSortingSpeed(numNumbers, filename);
 
     return 0;
