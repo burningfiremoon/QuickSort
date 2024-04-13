@@ -75,6 +75,7 @@ void testSortingSpeed(int numNumbers, const char* filename) {
         if (!deleteFile(filename)) {
             cerr << "Failed to delete file." << endl;
         }
+        cout << i << endl;
 
     }
 
@@ -104,7 +105,7 @@ void testSortingSpeed(int numNumbers, const char* filename) {
 
 int main() {
     const char* filename = "random_numbers.txt";
-    int numNumbers = 1000000; // Number of random numbers to generate
+    int numNumbers = 10000; // Number of random numbers to generate
     testSortingSpeed(numNumbers, filename);
 
     return 0;
